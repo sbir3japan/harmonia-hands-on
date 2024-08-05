@@ -1,0 +1,4 @@
+include 'evm-interop-common'
+include 'evm-interop-contracts'
+include 'evm-interop-workflows'
+include 'samples:atomic-swap:swap-workflows'

@@ -1,0 +1,39 @@
+apply plugin: 'net.corda.plugins.cordapp'
+apply plugin: 'kotlin'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://download.corda.net/maven/corda-releases' }
+    maven { url 'https://download.corda.net/maven/corda-dependencies' }
+}
+
+cordapp {
+    targetPlatformVersion corda_platform_version
+    minimumPlatformVersion corda_platform_version
+
+    workflow {
+        name "EVM Interop Common Library"
+        vendor "Corda Open Source"
+        licence "Apache License, Version 2.0"
+        versionId 1
+    }
+    sealing.enabled false
+    signing.enabled false
+}
+
+dependencies {
+    // Kotlin standard library
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
+    // Corda dependencies
+    cordaCompile "$corda_core_release_group:corda-core:$corda_core_release_version"
+
+    // Web3j dependencies
+    api ("org.web3j:core:$web3jVersion") { transitive = true }
+
+    // test dependencies
+    testCompile "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
+    testCompile "junit:junit:$junit_version"
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    testImplementation "org.mockito:mockito-inline:$mockitoVersion"
+}
