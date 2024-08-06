@@ -164,17 +164,17 @@
   ```
 - Bob@Corda で Draft TX を作成し，Alice@Corda に共有する
   ```
-  start com.r3.corda.evminterop.workflows.demo.DemoBuildAndProposeDraftTransactionFlow transactionId: "{txid}", outputIndex: 0, buyerAddress: "0xf0E2Db6C8dC6c681bB5D6aD121A107f300e9B2b5", buyerCordaName: "Alice", sellerAddress: "0xcA843569e3427144cEad5e4d5999a3D0cCF92B8e", tokenAddress: "0x00fFD3548725459255f1e78A61A07f1539Db0271", protocolAddress: "0x695Baaf717370fcBb42aB45CD83C531C27D79eF1", amount: 100
+  start com.r3.corda.evminterop.workflows.demo.DemoBuildAndProposeDraftTransactionFlow transactionId: "{txid}", outputIndex: 0, buyerAddress: "0xf0E2Db6C8dC6c681bB5D6aD121A107f300e9B2b5", buyerCordaName: "Alice", sellerAddress: "0xcA843569e3427144cEad5e4d5999a3D0cCF92B8e", signerAddress: "0xed9d02e382b34818e88B88a309c7fe71E65f419d", signerCordaName: "Charlie", tokenAddress: "0x00fFD3548725459255f1e78A61A07f1539Db0271", protocolAddress: "0x695Baaf717370fcBb42aB45CD83C531C27D79eF1", amount: 100
   ```
 - Alice＠Corda はスワップコントラクトにデジタル通貨をコミットする
   ```
-  start com.r3.corda.evminterop.workflows.swap.CommitWithTokenFlow transactionId: "{txid}", tokenAddress: "0x00fFD3548725459255f1e78A61A07f1539Db0271", amount: 100, recipient: "0xcA843569e3427144cEad5e4d5999a3D0cCF92B8e", signaturesThreshold: 1, signers: ["0xcA843569e3427144cEad5e4d5999a3D0cCF92B8e", "0xf0E2Db6C8dC6c681bB5D6aD121A107f300e9B2b5"]
+  start com.r3.corda.evminterop.workflows.swap.CommitWithTokenFlow transactionId: "{txid}", tokenAddress: "0x00fFD3548725459255f1e78A61A07f1539Db0271", amount: 100, recipient: "0xcA843569e3427144cEad5e4d5999a3D0cCF92B8e", signaturesThreshold: 1, signers: ["0xed9d02e382b34818e88B88a309c7fe71E65f419d"]
   ```
 - Bob@EVM はデジタル通貨のコミットが確認できたら，Draft TX に署名する．ここで Notary の署名も入る．
   ```
   start com.r3.corda.evminterop.workflows.demo.DemoSignDraftTransaction transactionId: "{txid}"
   ```
-- Bob@Corda は買い手に署名依頼する．
+- Bob@Corda はバリデータに署名依頼する．
   ```
   start com.r3.corda.evminterop.workflows.demo.NotarizationSignaturesCollectorFlow$CollectNotarizationSignaturesFlow transactionId: "{txid}", blocking: true
   ```
@@ -184,11 +184,11 @@
   ```
 - Alice@Corda は EVM における支払いの証明を作成する
   ```
-  start com.r3.corda.evminterop.workflows.demo.BlockSignaturesCollectorFlow$CollectBlockSignaturesFlow transactionId: "{txid}", blockNumber: 151, blocking: true
+  start com.r3.corda.evminterop.workflows.demo.BlockSignaturesCollectorFlow$CollectBlockSignaturesFlow transactionId: "{txid}", blockNumber: {block_number}, blocking: true
   ```
 - Alice@Corda は上記で作成した支払い証明を以って，デジタルアセットを引き出す
   ```
-  start com.r3.corda.evminterop.workflows.demo.DemoUnlockAssetFlow transactionId: "{txid}", blockNumber: 151, transactionIndex: 0
+  start com.r3.corda.evminterop.workflows.demo.DemoUnlockAssetFlow transactionId: "{txid}", blockNumber: {block_number}, transactionIndex: 0
   ```
 
 以上の操作を行うことで Corda 上のデジタルアセットの Bob→Alice への移転，EVM 上のデジタル通貨の Alice→Bob への支払いがアトミックに完了しているはずです．
