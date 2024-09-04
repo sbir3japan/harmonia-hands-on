@@ -94,17 +94,7 @@
 
 ### **Corda テストネットワークのセットアップ**
 
-1. アプリのクローン
-
-   アトミックスワップで使用する EVM スマートコントラクトと Cordapp を含むプロジェクトをクローンしてきます．
-
-   オリジナルのソースはhttps://github.com/hyperledger-labs/harmonia/tree/main/src/r3/atomic-swapにあるのですが，諸事情により手を加えないと動作しないので，SBI R3 Japan で一部改変した以下のプロジェクトを使用していきます．
-
-   ```
-   git clone https://github.com/sbir3japan/harmonia-hands-on
-   ```
-
-2. Cordapp のビルド
+1. Cordapp のビルド
 
    harmonia-hands-on/corda に移動します．
 
