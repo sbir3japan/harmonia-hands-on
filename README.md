@@ -61,7 +61,7 @@
    git clone https://github.com/sbir3japan/harmonia-hands-on.git
    ```
 
-   ./Harmonia-demo/evm に移動します．
+   ./harmonia-hands-on/evm に移動します．
 
    hardhat.config.js の network.besu.accounts にハードコーディングされている秘密鍵を，今回 BESU で使用する EOA の秘密鍵に書き換えます．
 
@@ -101,12 +101,12 @@
    オリジナルのソースはhttps://github.com/hyperledger-labs/harmonia/tree/main/src/r3/atomic-swapにあるのですが，諸事情により手を加えないと動作しないので，SBI R3 Japan で一部改変した以下のプロジェクトを使用していきます．
 
    ```
-   git clone https://github.com/sbir3japan/harmonia-demo
+   git clone https://github.com/sbir3japan/harmonia-hands-on
    ```
 
 2. Cordapp のビルド
 
-   harmonia-demo/corda に移動します．
+   harmonia-hands-on/corda に移動します．
 
    以下のコマンドを実行します．
 
