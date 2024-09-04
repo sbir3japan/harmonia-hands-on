@@ -58,13 +58,7 @@
    以下のコマンドを実行し，GitHub からソースをクローンしてきます．
 
    ```
-   git clone https://github.com/sbir3japan/Harmonia-demo.git
-   ```
-
-   ブランチを demo に切り替えます．
-
-   ```
-   git checkout demo
+   git clone https://github.com/sbir3japan/harmonia-hands-on.git
    ```
 
    ./Harmonia-demo/evm に移動します．
